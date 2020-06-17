@@ -37,45 +37,39 @@ function EcommercePrueba() {
         <div className="section section-blog">
           <Container>
           <Row>
-
-
-          {   
-                            categories.map((producto, i) => {
-         
-                                return (
-
-
-            
+          {  categories.map((producto, i) => {
+            let a = (producto.urlImg === null) ? 'https://dojiw2m9tvv09.cloudfront.net/11132/product/campanario408881.jpg': producto.urlImg
+          return (
               <Col md="4">
                 <Card className="card-blog">
-                  <div className="card-image">
+                  <div className="card-image" >
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
                       <img
                         alt="..."
                         className="img img-raised"
-                        src={producto.urlImg}
+                        src={a}
+                        style ={{height: "300px"}}
                       />
                     </a>
                   </div>
                   <CardBody>
-                    <h6 className="card-category text-info">Enterprise</h6>
+                    <h6 className="card-category text-info">{producto.name}</h6>
                     <CardTitle tag="h5">
                       <a href="#pablo" onClick={(e) => e.preventDefault()}>
                       $ {producto.variant.finalPrice}
-                      
                       </a>
                     </CardTitle>
-                    <p className="card-description">
-                    {producto.name} <br />
-                    </p>
+                    
                     <hr />
                     <CardFooter>
-                      <div className="author">
-                        <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                      <div className="author" >
+                        <a href="#pablo" onClick={(e) => e.preventDefault()}
+                        >
                           <img
                             alt="..."
                             className="avatar img-raised mr-2"
-                            src={producto.urlImg}
+                            src={a}
+                          
                           />
                           <span>{producto.variant.description}</span>
                         </a>
@@ -103,15 +97,8 @@ function EcommercePrueba() {
                   </CardBody>
                 </Card>
               </Col>
-              )
-                        })
-                    }   
-
-
-           
-
-
-
+              )}
+            )}   
             </Row>
           </Container>
         </div>
