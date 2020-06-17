@@ -3,8 +3,14 @@ const getState = ({ getStore, getActions, setStore }) => {
     // base datos Angel
     store: {
       /////URL
-      baseURL: "http://127.0.0.1:5000",
+      //baseURL: "http://ec2-54-183-147-121.us-west-1.compute.amazonaws.com:8585",
 
+
+      Token_de_acceso: '22636ca690d932cc523065f4b3dea68ed3184bdb', 
+      baseURL: "http://ec2-54-183-147-121.us-west-1.compute.amazonaws.com:8383",
+      url: "/v2/markets/1/collection/2/market_info.json",
+
+      
       // claves de usuario
       nombre: "",
       apellido: "",
@@ -223,24 +229,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 // Tienda salsas
-      store: (e, id) => {
-
-				getActions().tienda(`/api/tienda/tienda`);
-			},
-
-			tienda: async (url) => {
-
-				const store = getStore();
-				const { baseURL } = store;
+      store: (e) => {
+        const store = getStore();
+        const { baseURL, url } = store;
+        getActions().tienda(baseURL, url );
+        console.log(baseURL + url, "para ver que queda")
+      },
+			tienda: async (baseURL, url) => {			
+        const store = getStore();
+        const { Token_de_acceso } = store;
+   
 				const resp = await fetch(baseURL + url, {
-					method: 'GET',
+          
+          method: 'GET',
 					headers: {
-						'Content-Type': 'application/json',
+            'access_token': Token_de_acceso,
 					},
-
-				})
+        })
+        
+        
 				const dato = await resp.json();
-				console.log(dato)
+				console.log(dato, "veamos que llega del examen")
 				if (dato.msg) {
 					setStore({
 						error: dato
