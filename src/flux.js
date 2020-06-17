@@ -193,7 +193,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   // Compra de Productos
 
 
-			productoComprado: (e, history) => {
+			productoComprado: (e) => {
         const store = getStore();
         console.log(store.carrito, "cuando se va a comprar")
 

@@ -80,26 +80,9 @@ export default function ButtonCarrito() {
               <Carrito />
           </ListItemIcon>
         </StyledMenuItem>
-        { store.isAuthenticated ? 
           <div className="text-center">
             <ModalCompra  />
           </div>   
-            :  
-              <div className="text-center">
-            "Para poder ingresar su pedido debe ingresar."
-            <Button
-                className="btn-round"
-                color="success"
-                type="button"
-                onClose={handleClose}
-              >
-                 <Link to="/login-page" >
-                    <i className="now-ui-icons users_circle-08"></i>
-                Ingresar
-                </Link>
-              </Button>
-            </div>
-            }
       </StyledMenu>          
     </div>
   );
