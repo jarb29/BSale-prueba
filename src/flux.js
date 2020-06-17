@@ -7,18 +7,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       Token_de_acceso: '22636ca690d932cc523065f4b3dea68ed3184bdb', 
       baseURL: "http://ec2-54-183-147-121.us-west-1.compute.amazonaws.com:8383",
       url: "/v2/markets/1/collection/2/market_info.json",
+      urlPost: "/v1/cart.json",
 
-      
-      // claves de usuario
-  
-       // Nombre Producto
-
-       avatar: '',
-       nombreProducto: '',
-       precio: '',
-       categoria: '',
-       descripcion: '',
-  
 
        // Carrito
        carrito: [],
@@ -76,10 +66,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             'access_token': Token_de_acceso,
 					},
         })
-        
-        
-				const dato = await resp.json();
-				console.log(dato, "veamos que llega del examen")
+        const dato = await resp.json();
+        console.log(dato, "lo que esta llegando")
 				if (dato.msg) {
 					setStore({
 						error: dato
@@ -126,7 +114,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					totalCarrito: newtotalCarrito
 				})
       },
-      // Funcion para agregar itenes desde el carrito
+
+// Funcion para agregar itenes desde el carrito
 
       addToCartI: producto => {
         const store = getStore();
@@ -169,8 +158,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				let { carrito, totalCarrito } = store;
         let existe = false;
-        
-        console.log(carrito, "producto que esta llegando negativo")
 				let newtotalCarrito = 0;
 				let newCarrito = carrito.map((item) => {
 					if (JSON.stringify(item.producto) === JSON.stringify(producto.producto)) {
@@ -187,7 +174,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (index !==-1) {
           newCarrito.splice(index, 1)
         }
-        console.log(newCarrito, "que es el newCarrito")
 				newCarrito.map(item => {
 					return newtotalCarrito = newtotalCarrito + (item.cantidad * item.producto.variant.finalPrice);
 				})
@@ -202,105 +188,44 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			productoComprado: (e) => {
         const store = getStore();
-        console.log(store.carrito, "cuando se va a comprar")
-
+        const { cartDetails, baseURLPost, urlPost } = store;
 				store.carrito.map(ItemCarrito => {
-							store.ItemProductoCompradoId.push(ItemCarrito.producto.id);
-							store.CantidaProductoComprado.push(ItemCarrito.cantidad);
-              store.precioProductoSeleccionado.push(ItemCarrito.producto.precio);							
-					return ' '
+          return(
+              cartDetails.push(
+              {"quantity": ItemCarrito.cantidad, 
+              "unitValue": ItemCarrito.producto.variant.finalPrice, 
+             "idVarianteProducto":ItemCarrito.producto.variant.id})
+          )
         });
-      
 
-				let data = {
-          
-          
-					"usuario_id": store.currentUser.tienda.id,
-					"ItemProductoCompradoId": store.ItemProductoCompradoId,
-					"CantidaProductoComprado": store.CantidaProductoComprado,
-					"precioProductoSeleccionado": store.precioProductoSeleccionado,
-					"totalFactura":store.totalCarrito,
-					"usuarioActual":store.currentUser,
+        let data ={
+          "cartDetails": cartDetails
+        }
 
-				}
-				console.log(data, "comprado")
-
-
-				getActions().productosComprados(`/api/tienda/checkout/`, data);
+				getActions().productosComprados(baseURLPost, urlPost, data );
 			},
 
-			productosComprados: async (url, data, history) => {
-				const store = getStore();
-				const { baseURL } = store;
-				const resp = await fetch(baseURL + url, {
-					method: 'PUT',
-					body: JSON.stringify(data),
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				})
-				const dato = await resp.json();
-				console.log(dato, )
-				if (dato.msg) {
-
-          setStore({
-            productosActualizados: dato,
-            carrito:[],
-            totalCarrito:[]
-          });
-				} else {
-          setStore({
-						error: dato
-					})
-				}
-      },
-    
-// Funcion para hacer el requerimiento de Productos
-
-      handleSubmitProducto: (e, history) => {
-        e.preventDefault();
+			productosComprados: async (baseURLPost, urlPost, data) => {
         const store = getStore();
-        let formData = new FormData();
-        formData.append("nombreProducto", store.nombreProducto);
-        formData.append("descripcion", store.descripcion);
-        formData.append("precio", store.precio);
-        formData.append("categoria", store.categoria);
-        if (store.avatar !== ' ') {
-          formData.append("avatar", store.avatar)
-
-        } else { setStore({ error: { "msg": "Por favor agregar foto" } }) };
-        console.log(store.avatar);
-
-
-
-        getActions().register('/api/admi/administrador', formData, history)
-      },
-
-      register: async (url, data, history) => {
-        const store = getStore();
-        const { baseURL } = store;
-        console.log(data, "para ver")
-        const resp = await fetch(baseURL + url, {
+        const { Token_de_acceso } = store;
+        const resp = await fetch(baseURLPost + urlPost, {
           method: 'POST',
-          body: data
+          body: JSON.stringify(data),      
+					headers: {
+            'access_token': Token_de_acceso,
+					}
         })
         const info = await resp.json();
-        console.log(info)
-
-        if (info.msg) {
+        console.log(info, "retorno del producto")
+        if (info) {
           setStore({
             error: null,
-            productoAgregado: info.msg,
-            isAuthenticated: true,
-          })
-          sessionStorage.getItem('isAuthenticated', true)
-          
+            productoAgregado: info,
+            carrito: [],
+            totalCarrito: [],
+          })     
         }
-        history.push("/administrador");
-        console.log(store.productoAgregado)
       },
-
-      
     }
   };
 };
