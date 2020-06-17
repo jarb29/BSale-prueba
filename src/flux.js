@@ -13,21 +13,21 @@ const getState = ({ getStore, getActions, setStore }) => {
        // Carrito
        carrito: [],
        totalCarrito: [],
-       
-       // Productos comprados
-       ItemProductoCompradoId: [],
-       CantidaProductoComprado: [],
-       precioProductoSeleccionado: [],
-       cantidadProductoSeleccionado: [],
+      
        // retorno productos comprados
        productosActualizados: [],
 
        // Variables del retorno del GET directo de la URL
        tiendaSeleccionada: [],
        tiendatotal: [],
+
+       // Variables del retorno del POST directo de la URL
+       productoAgregado:[],
+       erro:[],
        
        // Variable de envio de compra
        cartDetails: [],
+    
     },
 
     actions: {
@@ -156,7 +156,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       addToCartII: producto => {
         const store = getStore();
 
-				let { carrito, totalCarrito } = store;
+				let { carrito } = store;
         let existe = false;
 				let newtotalCarrito = 0;
 				let newCarrito = carrito.map((item) => {
@@ -183,9 +183,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
       },
       
-  // Compra de Productos
-
-
+  // Compra de Productos y envia a la API
 			productoComprado: (e) => {
         const store = getStore();
         const { cartDetails, baseURLPost, urlPost } = store;

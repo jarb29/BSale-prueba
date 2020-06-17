@@ -1,4 +1,4 @@
-import React, { useContext,  useEffect}  from "react";
+import React, { useContext}  from "react";
 import { Context } from '../../AppContext';
 import { withRouter } from "react-router";
 
@@ -14,7 +14,7 @@ import {
 
 function ModalCompra(props) {
     
-    const { store, actions} = useContext(Context);
+    const { actions} = useContext(Context);
 
 
 

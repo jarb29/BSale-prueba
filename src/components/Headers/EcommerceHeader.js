@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useContext }  from "react";
+import { Context } from '../../AppContext';
+import Alert from '@material-ui/lab/Alert';
+//import CheckIcon from '@material-ui/icons/Check';
+
 
 // reactstrap components
 import {
@@ -16,10 +20,9 @@ const items = [
     content: (
       <Row>
         <Col className="ml-auto mr-auto" md="8">
-          <h1 className="title">Finding the Perfect.</h1>
+          <h1 className="title">Compra en Bsale...</h1>
           <h4 className="description text-white">
-            The haute couture crowds make stylish statements between shows
-            during couture season in Paris...
+            Donde encontraras de todo.
           </h4>
         </Col>
       </Row>
@@ -32,10 +35,9 @@ const items = [
     content: (
       <Row>
         <Col className="ml-auto mr-auto text-center" md="8">
-          <h1 className="title">Street Style: Couture.</h1>
+          <h1 className="title">Porque te conocemos.</h1>
           <h4 className="description text-white">
-            See what Karlie Kloss, Tracee Ellis Ross and others wore between the
-            shows...
+            Compra las ultimas tendencias...
           </h4>
         </Col>
       </Row>
@@ -44,14 +46,13 @@ const items = [
     caption: ""
   },
   {
-    src: "url(" + require("assets/img/bg29.jpg") + ")",
+    src: "url(" + require("assets/img/bg42.png") + ")",
     content: (
       <Row>
         <Col className="ml-auto mr-auto" md="8">
-          <h1 className="title">For Men With Style.</h1>
+          <h1 className="title">Para todos los estilos.</h1>
           <h4 className="description text-white">
-            Shirts that actually fit? Check. Linen shorts? Yup. Those wider
-            pants suddenly in style? Got them, too....
+            Atrevete a usarnos tenemos soluciones para todos los gustos....
           </h4>
         </Col>
       </Row>
@@ -64,6 +65,7 @@ const items = [
 function EcommerceHeader() {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [animating, setAnimating] = React.useState(false);
+  const { store} = useContext(Context);
   const onExiting = () => {
     setAnimating(true);
   };
@@ -84,8 +86,15 @@ function EcommerceHeader() {
     if (animating) return;
     setActiveIndex(newIndex);
   };
+
+  console.log(store.productoAgregado.code ==200, "que hay aqui")
   return (
     <>
+      {store.error === null?
+      <Alert  severity="success">
+        Producto agregado exitosamente. 
+      </Alert> : null}
+
       <Carousel activeIndex={activeIndex} next={next} previous={previous}>
         <CarouselIndicators
           items={items}

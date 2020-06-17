@@ -19,6 +19,7 @@ import {
 
 import EcommerceHeader from "components/Headers/EcommerceHeader.js";
 import FixedTransparentNavbar from "components/Navbars/FixedTransparentNavbar";
+import FooterDefault from "components/Footers/FooterDefault";
 
 function EcommercePrueba() {
   const { store, actions } = useContext(Context);
@@ -79,7 +80,7 @@ function EcommercePrueba() {
                       </div>
                             <Button
                               className="btn-neutral btn-icon btn-round pull-right"
-                              color="success"
+                              color="black"
                               data-placement="left"
                               id={`tooltip${i}`}
                               onClick={() => actions.addToCart(producto)}
@@ -101,7 +102,9 @@ function EcommercePrueba() {
             )}   
             </Row>
           </Container>
+          <FooterDefault />
         </div>
+
       </div>
     </>
   );
