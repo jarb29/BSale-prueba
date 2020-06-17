@@ -21,9 +21,11 @@ import ButtonCarrito from "./ButtonCarrito";
 function FixedTransparentNavbar(props) {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const { actions, store} = useContext(Context);
+  let num = Math.floor(Math.random() * 8) + 2; 
 
-
-
+  let words = [' shopping_shop', ' business_bulb-63', ' location_pin', ' education_paper', ' users_circle-08', ' users_single-02', ' tech_mobile',  ' users_circle-08',' tech_mobile']
+  let menu = ['Pisco', 'Ron', 'Bebidas Energeticas', 'Ceramicas', 'Makka Drinks', 'Energetica Score', 'Varios', 'Demo y final']
+  
   return (
     <>
       {collapseOpen ? (
@@ -63,64 +65,23 @@ function FixedTransparentNavbar(props) {
                   <p>Categorias</p>
                 </DropdownToggle>
                 <DropdownMenu aria-labelledby="navbarDropdownMenuLink" right>
-                <DropdownItem tag={Link} to="/e-commerce">
-                    <i className="now-ui-icons shopping_shop"></i>
-                    Tortas
+
+                  {menu.map((word, i)=>{
+                    return (
+                      <DropdownItem 
+                      key ={i}
+                    onClick={(e) => {
+                      actions.store(e, i+2)
+                    }}
+                    >
+                    <i className={`now-ui-icons${words[i]}`}></i>
+                    {word}
                   </DropdownItem>
-                  <DropdownItem tag={Link} to="/e-commercee">
-                    <i className="now-ui-icons shopping_shop"></i>
-                    Salsas
-                  </DropdownItem>
-                  <DropdownItem tag={Link} to="/about-us">
-                    <i className="now-ui-icons business_bulb-63"></i>
-                    Sobre Nosotros
-                  </DropdownItem>
-                  <DropdownItem tag={Link} to="/contact-us">
-                    <i className="now-ui-icons location_pin"></i>
-                    Contactanos
-                  </DropdownItem>
-                  <DropdownItem tag={Link} to="/landing-page">
-                    <i className="now-ui-icons education_paper"></i>
-                    Home
-                  </DropdownItem>
-                  { !store.isAuthenticated ?
-                  <DropdownItem tag={Link} to="/login-page">
-                    <i className="now-ui-icons users_circle-08"></i>
-                    Login Page
-                  </DropdownItem> : null}
-                  { store.isAuthenticated ? 
-                  <DropdownItem tag={Link} to="/profile-page">
-                    <i className="now-ui-icons users_single-02"></i>
-                    Profile Page
-                  </DropdownItem>: null}
-                  <DropdownItem tag={Link} to="/index">
-                    <i className="now-ui-icons location_pin"></i>
-                    Componentes
-                  </DropdownItem>
-                  { !store.isAuthenticated ? 
-                  <DropdownItem tag={Link} to="/sign-up">
-                    <i className="now-ui-icons tech_mobile"></i>
-                    Registrate
-                  </DropdownItem>: null}
+
+                    )
+                  })}
                 </DropdownMenu>
               </UncontrolledDropdown>
-              { store.isAuthenticated ?
-              <UncontrolledDropdown nav>
-                <DropdownToggle
-                  caret
-                  color="default"
-                  data-toggle="dropdown"
-                  href="#pablo"
-                  id="navbarDropdownMenuLink"
-                  nav
-                  onClick={(e) => {
-                    actions.logout(e, props.history)
-                  }}
-                >
-                  <i className="now-ui-icons users_circle-08"></i>
-                  <p>Cerrar sesion</p>
-                </DropdownToggle>
-              </UncontrolledDropdown> :null}
               {store.carrito.length !==0? <ButtonCarrito />: null}
             </Nav>
           </Collapse>

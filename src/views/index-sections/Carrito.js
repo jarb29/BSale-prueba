@@ -54,26 +54,25 @@ function Carrito() {
                         <tbody >
                         {   
                             store.carrito.map((producto, i) => {
-                              let img = store.baseURL + `/api/tienda/tienda/` + producto.producto.avatar
+                              let a = (producto.producto.urlImg === null) ? 'https://dojiw2m9tvv09.cloudfront.net/11132/product/campanario408881.jpg': producto.producto.urlImg;
                               console.log(producto, "dentro del map del carrito")
-                             
                                 return (  
                         
                         <tr key ={i} >
                           <td className="text-center">
-                            <small>{producto.producto.nombre}</small>
+                            <small>{producto.producto.name}</small>
                           </td>
                           <td className="text-center">
                               <div className="img-container">
                                   <img
                                     alt="..."
-                                    src={img}
+                                    src={a}
                                     style ={{width:"50px"}}
                                   ></img>
                               </div>
                           </td>
                           <td className="text-center">
-                                $ {producto.producto.precio} 
+                                $ {producto.producto.variant.finalPrice} 
                           </td>
                           <td className="text-center">
                                {producto.cantidad}
@@ -99,7 +98,7 @@ function Carrito() {
                             </td>
                             <td className="text-center">
                          
-                          $ {producto.cantidad*producto.producto.precio} <small> CLP </small> 
+                          $ {producto.cantidad*producto.producto.variant.finalPrice} <small> CLP </small> 
                        
                           </td>
                           </tr>

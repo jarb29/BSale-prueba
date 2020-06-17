@@ -38,7 +38,6 @@ function ModalCompra(props) {
                 toggle={() => setModalMini(false)}
               >
                 <div className="modal-header justify-content-center">
-                  
                   <div  style ={{width:"110px", opacity: '0.7', borderImage: '50 round'}}>
                         <img
                         alt="..."
@@ -46,7 +45,6 @@ function ModalCompra(props) {
                         src={require("assets/img/logo.jpg")}
                         ></img>
                     </div>
-         
                 </div>
                 <div className="modal-body">
                   <p>Esta seguro de realizar su compra?</p>
@@ -59,21 +57,17 @@ function ModalCompra(props) {
                   >
                     Cerrar
                   </Button>
-                
                   <Button 
                   className="btn-neutral" 
                   color="link" 
                   type="button"
-                  
                   onClick={(e) => {
                     actions.productoComprado(e, props.history)
                     setModalMini(false)
                   }}
-                  
                   >
                     Comprar
                   </Button> 
-                
                 </ModalFooter>
               </Modal>
         </Container>
