@@ -1,7 +1,6 @@
 /*eslint-disable*/
 import React, { useContext }  from "react";
 import { Context } from '../../AppContext';
-import { Link } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';

@@ -1,13 +1,10 @@
 import React, { useContext }  from "react";
 import { Context } from '../../AppContext';
-import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 // reactstrap components
 import {
   Collapse,
   DropdownToggle,
-  Button,
-  NavItem,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
@@ -21,7 +18,6 @@ import ButtonCarrito from "./ButtonCarrito";
 function FixedTransparentNavbar(props) {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const { actions, store} = useContext(Context);
-  let num = Math.floor(Math.random() * 8) + 2; 
 
   let words = [' shopping_shop', ' business_bulb-63', ' location_pin', ' education_paper', ' users_circle-08', ' users_single-02', ' tech_mobile',  ' users_circle-08',' tech_mobile']
   let menu = ['Pisco', 'Ron', 'Bebidas Energeticas', 'Ceramicas', 'Makka Drinks', 'Energetica Score', 'Varios', 'Demo y final']
