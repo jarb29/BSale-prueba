@@ -34,7 +34,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
        // Variables del retorno del GET directo de la URL
        tiendaSeleccionada: [],
-			 tiendatotal: [],
+       tiendatotal: [],
+       
+       // Variable de envio de compra
+       cartDetails: [],
     },
 
     actions: {
@@ -115,7 +118,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 				}
 				newCarrito.map(item => {
-					return newtotalCarrito = newtotalCarrito + (item.cantidad * item.producto.precio);
+          console.log(item, "item en el carro ")
+					return newtotalCarrito = newtotalCarrito + (item.cantidad * item.producto.variant.finalPrice);
 				})
 				setStore({
 					carrito: newCarrito,
@@ -126,7 +130,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       addToCartI: producto => {
         const store = getStore();
-        console.log(producto, "que esta pasando")
+        console.log(producto, "que esta pasando cuando sumo")
 
 				let { carrito } = store;
 				let existe = false;
@@ -150,7 +154,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 				}
 				newCarrito.map(item => {
-					return newtotalCarrito = newtotalCarrito + (item.cantidad * item.producto.precio);
+					return newtotalCarrito = newtotalCarrito + (item.cantidad * item.producto.variant.finalPrice);
 				})
 				setStore({
 					carrito: newCarrito,
@@ -163,8 +167,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       addToCartII: producto => {
         const store = getStore();
 
-				let { carrito } = store;
-				let existe = false;
+				let { carrito, totalCarrito } = store;
+        let existe = false;
+        
+        console.log(carrito, "producto que esta llegando negativo")
 				let newtotalCarrito = 0;
 				let newCarrito = carrito.map((item) => {
 					if (JSON.stringify(item.producto) === JSON.stringify(producto.producto)) {
@@ -181,8 +187,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (index !==-1) {
           newCarrito.splice(index, 1)
         }
+        console.log(newCarrito, "que es el newCarrito")
 				newCarrito.map(item => {
-					return newtotalCarrito = newtotalCarrito + (item.cantidad * item.producto.precio);
+					return newtotalCarrito = newtotalCarrito + (item.cantidad * item.producto.variant.finalPrice);
 				})
 				setStore({
 					carrito: newCarrito,
@@ -219,7 +226,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(data, "comprado")
 
 
-				getActions().productosComprados(`/api/tienda/checkout/`, data, history);
+				getActions().productosComprados(`/api/tienda/checkout/`, data);
 			},
 
 			productosComprados: async (url, data, history) => {
@@ -241,14 +248,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             carrito:[],
             totalCarrito:[]
           });
-          console.log(history, "historia")
-          history.push("/landing-page");
-			
 				} else {
           setStore({
 						error: dato
 					})
-      
 				}
       },
     
