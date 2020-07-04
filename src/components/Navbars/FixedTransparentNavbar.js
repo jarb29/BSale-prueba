@@ -35,12 +35,28 @@ function FixedTransparentNavbar(props) {
       ) : null}
       <Navbar className="navbar-absolute navbar-transparent" expand="lg">
         <Container>
+          <div>
           <div className="author" style ={{width:"110px", opacity: '0.7', borderImage: '50 round'}}>
             <img
             alt="..."
             className="avatar img-raised"
             src={require("assets/img/logo.jpg")}
             ></img>
+          </div>
+          <div >
+            <button
+              onClick={() => {
+                document.documentElement.classList.toggle("nav-open");
+                setCollapseOpen(!collapseOpen);
+              }}
+              aria-expanded={collapseOpen}
+              className="navbar-toggler"
+            >
+              <span className="navbar-toggler-bar top-bar"></span>
+              <span className="navbar-toggler-bar middle-bar"></span>
+              <span className="navbar-toggler-bar bottom-bar"></span>
+            </button>
+          </div>
           </div>
           <Collapse isOpen={collapseOpen} navbar>
             <Nav className="ml-auto" id="ceva" navbar>
