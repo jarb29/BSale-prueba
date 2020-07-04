@@ -20,8 +20,8 @@ function App() {
   return (
   <BrowserRouter>
     <Switch>
-      <Route path="/e-commercee" render={props => <EcommercePrueba {...props} />} />
-      <Redirect to="/e-commercee"  />
+      <Route path="/comercio" render={props => <EcommercePrueba {...props} />} />
+      <Redirect to="/comercio"  />
     </Switch>
   </BrowserRouter>
 )};

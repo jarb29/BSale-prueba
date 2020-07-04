@@ -35,7 +35,7 @@ function FixedTransparentNavbar(props) {
       ) : null}
       <Navbar className="navbar-absolute navbar-transparent" expand="lg">
         <Container>
-          <div>
+          <div className="navbar-translate">
           <div className="author" style ={{width:"110px", opacity: '0.7', borderImage: '50 round'}}>
             <img
             alt="..."
@@ -65,7 +65,6 @@ function FixedTransparentNavbar(props) {
                   caret
                   color="default"
                   data-toggle="dropdown"
-                  href="#pablo"
                   id="navbarDropdownMenuLink"
                   nav
                   onClick={e => e.preventDefault()}
@@ -77,7 +76,6 @@ function FixedTransparentNavbar(props) {
                   <p>Categorias</p>
                 </DropdownToggle>
                 <DropdownMenu aria-labelledby="navbarDropdownMenuLink" right>
-
                   {menu.map((word, i)=>{
                     return (
                       <DropdownItem 
@@ -89,12 +87,15 @@ function FixedTransparentNavbar(props) {
                     <i className={`now-ui-icons${words[i]}`}></i>
                     {word}
                   </DropdownItem>
-
                     )
                   })}
                 </DropdownMenu>
               </UncontrolledDropdown>
-              {store.carrito.length !==0? <ButtonCarrito />: null}
+              {store.carrito.length !==0? 
+                <DropdownItem >
+                    <ButtonCarrito />
+                </DropdownItem>
+                : null}
             </Nav>
           </Collapse>
         </Container>

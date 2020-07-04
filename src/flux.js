@@ -3,9 +3,9 @@ const getState = ({ getStore, getActions, setStore }) => {
     // base datos Angel
     store: {
       /////URL
-      baseURLPost: "http://ec2-54-183-147-121.us-west-1.compute.amazonaws.com:8585",
+      baseURLPost: "https://cors-anywhere.herokuapp.com/http://ec2-54-183-147-121.us-west-1.compute.amazonaws.com:8585",
       Token_de_acceso: '22636ca690d932cc523065f4b3dea68ed3184bdb', 
-      baseURL: "http://ec2-54-183-147-121.us-west-1.compute.amazonaws.com:8383",
+      baseURL: "https://cors-anywhere.herokuapp.com/http://ec2-54-183-147-121.us-west-1.compute.amazonaws.com:8383",
       url: "/v2/markets/1/collection/2/market_info.json",
       urlPost: "/v1/cart.json",
 

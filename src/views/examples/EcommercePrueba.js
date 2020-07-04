@@ -60,7 +60,6 @@ function EcommercePrueba() {
                       $ {producto.variant.finalPrice}
                       </a>
                     </CardTitle>
-                    
                     <hr />
                     <CardFooter>
                       <div className="author" >
@@ -70,7 +69,6 @@ function EcommercePrueba() {
                             alt="..."
                             className="avatar img-raised mr-2"
                             src={a}
-                          
                           />
                           <span>{producto.variant.description}</span>
                         </a>
@@ -102,9 +100,8 @@ function EcommercePrueba() {
             )}   
             </Row>
           </Container>
-          <FooterDefault />
         </div>
-
+        <FooterDefault />
       </div>
     </>
   );
