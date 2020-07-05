@@ -74,11 +74,7 @@ export default function ButtonCarrito() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <StyledMenuItem>
-          <ListItemIcon>
               <Carrito />
-          </ListItemIcon>
-        </StyledMenuItem>
           <div className="text-center">
             <ModalCompra  />
           </div>   
